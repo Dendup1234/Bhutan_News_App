@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText">
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -19,13 +20,10 @@
             android:gravity="center_vertical"
             >
             <!-- For News Title-->
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bhutan News"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@color/blue"
+                android:src="@drawable/bhutan_news_logo"
                 />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -36,8 +34,8 @@
         android:id="@+id/menu_item"
         android:layout_below="@+id/toolbar"
         app:tabTextColor="@color/grey_blue"
-        app:tabSelectedTextColor="@color/blue"
-        app:tabIndicatorColor="@color/blue"
+        app:tabSelectedTextColor="@color/yellow"
+        app:tabIndicatorColor="@color/yellow"
         app:tabIndicatorHeight="3.5dp"
         app:tabMode="scrollable"
         android:layout_marginTop="0dp"
@@ -101,16 +99,35 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/menu_item"
         android:layout_marginTop="0dp"
         android:background="@color/white"
-        android:id="@+id/fragment_container">
+        android:layout_above="@id/bottom_navigation"
+        >
 
     </androidx.viewpager2.widget.ViewPager2>
-
-
-
-
+    <!--Fragment container for switching between the fragment-->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fragment_container"
+        android:layout_above="@+id/bottom_navigation"
+        />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/botttom_navigation_menu"
+        app:itemTextColor="@color/bottom_nav_selector"
+        app:itemIconTint="@color/bottom_nav_selector"
+        app:itemBackground="@null"
+        app:itemRippleColor="@null"
+        app:labelVisibilityMode="labeled"
+        app:itemActiveIndicatorStyle="@style/NoActiveIndicator" />
 </RelativeLayout>

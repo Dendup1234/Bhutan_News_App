@@ -1,58 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <LinearLayout
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Section Title (e.g., "News") -->
+    <TextView
+        android:id="@+id/sectionTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/sectionTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="40sp"
-            android:textColor="@color/blue"
-            android:text="Hello"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="center"
-            android:layout_margin="16dp"
-            android:id="@+id/imageView"
-            />
-        <TextView
-            android:id ="@+id/titleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello"
-            android:textSize="30sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_margin="10dp"
-            />
-        <TextView
-            android:id ="@+id/dateTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/grey_blue"
-            android:text="12th september"
-            />
-        <TextView
-            android:id="@+id/descriptionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:text="Description"
-            />
+        android:text="News"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/yellow"
+        android:layout_marginBottom="8dp" />
 
-    </LinearLayout>
+    <!-- CardView starts here -->
+    <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/white"
+        android:elevation="4dp"
+        app:cardCornerRadius="8dp">
 
+        <!-- Horizontal layout inside the CardView for thumbnail and text content -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:background="@color/white">
 
-</RelativeLayout>
+            <!-- Thumbnail on the left -->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="16dp" />
+
+            <!-- Container for text (title, date, description) on the right -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+                <!-- Article Title -->
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Half a billion spent on fourth parliamentary elections"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:layout_marginBottom="4dp"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+                <!-- Description of the news article -->
+                <TextView
+                    android:id="@+id/descriptionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The Election Commission of Bhutan (ECB) spent a total of Nu 528.03 million for the fourth National Assembly (NA) and National Council (NC) elections held last year. However, this figure reflects a decrease in spending compared to the previous electoral cycle."
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginBottom="16dp" />
+                <!-- Date of the article -->
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="September 27th, 2024"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_marginBottom="4dp" />
+
+                <!-- Source text -->
+                <TextView
+                    android:id="@+id/sourceTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kuensel"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray" />
+
+                <ImageButton
+                    android:id="@+id/likeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_like"
+                    android:contentDescription="Like"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_gravity="end"
+                    app:tint="@android:color/darker_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,11 +14,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
+import java.util.Date
 
 class SportFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var newsAdapter: NewsAdapter
     private val newsList = mutableListOf<NewsItem>()
+    private lateinit var dbHelper:UserDatabaseHelper
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,7 +30,10 @@ class SportFragment : Fragment() {
         val view = inflater.inflate(R.layout.sport,container,false)
         recyclerView = view.findViewById(R.id.recyclerviewsports)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        newsAdapter = NewsAdapter(newsList)
+        dbHelper =  UserDatabaseHelper(requireContext())
+        val sharedPref = requireActivity().getSharedPreferences("user_pref", AppCompatActivity.MODE_PRIVATE)
+        val userEmail = sharedPref.getString("user_email", "Guest") ?: "Guest"
+        newsAdapter = NewsAdapter(newsList,dbHelper,userEmail)
         recyclerView.adapter = newsAdapter
         scrapNewsPage()
         return view
@@ -47,11 +53,12 @@ class SportFragment : Fragment() {
                     it.substringAfter("url(").substringBefore(")")
                 }?: ""
                 val highlightedNewsUrl = highlightedNews?.selectFirst("h5.mt-0.post-title a")?.attr("href")?:""
-                val highlightedNewsItem = NewsItem("Sports",highlightedTitle,highlightedImageUrl,highlightedDate,highlightedDescription,highlightedNewsUrl)
+                val highlightedNewsItem = NewsItem("Sports",highlightedTitle,highlightedImageUrl,highlightedDate,highlightedDescription,highlightedNewsUrl,"From Kuensel", Date(0))
                 newsList.add(highlightedNewsItem)
 
                 // Extracting the Other featured news in the media
-                val mediaNews = document.select("div.col-md-6")
+                val category = document.select("div.category")
+                val mediaNews = category.select("div.col-md-6")
                 for (articles in mediaNews){
                     val title = articles?.selectFirst("h5.mt-0.post-title")?.text()?: "No Title"
                     val date  = articles?.selectFirst("p.post-date")?.text()?:"No Date"
@@ -61,61 +68,7 @@ class SportFragment : Fragment() {
                         it.substringAfter("url(").substringBefore(")")
                     }?: ""
                     val newsUrl = articles.selectFirst("h5.mt-0.post-title a")?.attr("href")?:""
-                    newsList.add(NewsItem("",title,imageUrl,date,description,newsUrl))
-                }
-
-                // For the related news
-                val relatedNews = document.selectFirst("div.related-wrapper")
-
-                // Extracting the editorial news section
-                val editorialSection = relatedNews?.selectFirst("div.editorial")
-                val editorialTitle = editorialSection?.selectFirst("h1")?.text()?: ""
-                val editorialArticle = editorialSection?.select("div.media-body")?: emptyList()
-                newsList.add(NewsItem(editorialTitle,"","","","",""))
-                for( articles in editorialArticle){
-                    val title = articles?.selectFirst("h5.post-title")?.text()?:""
-                    val date = articles?.selectFirst("p.post-date")?.text()?:""
-                    val description = articles?.selectFirst("p.post-date +p")?.text()?:""
-                    val newsUrl = articles?.selectFirst("h5.post-title a")?.attr("href")?:""
-                    newsList.add(NewsItem("",title,"",date,description,newsUrl))
-                }
-                // Extracting the opinions news section
-                val opinionSection = relatedNews?.selectFirst("div.opinions")
-                val opinionTitle = opinionSection?.selectFirst("h1")?.text()?: ""
-                val opinionArticle = opinionSection?.select("div.media-body")?: emptyList()
-                newsList.add(NewsItem(opinionTitle,"","","","",""))
-                for( articles in opinionArticle){
-                    val title = articles?.selectFirst("h5.post-title")?.text()?:""
-                    val date = articles?.selectFirst("p.post-date")?.text()?:""
-                    val description = articles?.selectFirst("p.post-date +p")?.text()?:""
-                    val newsUrl = articles?.selectFirst("h5.post-title a")?.attr("href")?:""
-                    newsList.add(NewsItem("",title,"",date,description,newsUrl))
-                }
-
-                // Extracting the sports news section
-                val sportsSection = relatedNews?.selectFirst("div.sports")
-                val sportsTitle = sportsSection?.selectFirst("h1")?.text()?: ""
-                val sportsArticle = sportsSection?.select("div.media-body")?: emptyList()
-                newsList.add(NewsItem(sportsTitle,"","","","",""))
-                for( articles in sportsArticle){
-                    val title = articles?.selectFirst("h5.post-title")?.text()?:""
-                    val date = articles?.selectFirst("p.post-date")?.text()?:""
-                    val description = articles?.selectFirst("p.post-date +p")?.text()?:""
-                    val newsUrl = articles?.selectFirst("h5.post-title a")?.attr("href")?:""
-                    newsList.add(NewsItem("",title,"",date,description,newsUrl))
-                }
-
-                // Extracting the business news section
-                val businessSection = relatedNews?.selectFirst("div.business")
-                val businessTitle = businessSection?.selectFirst("h1")?.text()?: ""
-                val businessArticle = businessSection?.select("div.media-body")?: emptyList()
-                newsList.add(NewsItem(businessTitle,"","","","",""))
-                for( articles in businessArticle){
-                    val title = articles?.selectFirst("h5.post-title")?.text()?:""
-                    val date = articles?.selectFirst("p.post-date")?.text()?:""
-                    val description = articles?.selectFirst("p.post-date +p")?.text()?:""
-                    val newsUrl = articles?.selectFirst("h5.post-title a")?.attr("href")?:""
-                    newsList.add(NewsItem("",title,"",date,description,newsUrl))
+                    newsList.add(NewsItem("",title,imageUrl,date,description,newsUrl,"From Kuensel", Date(0)))
                 }
 
                 // Update the RecyclerView on the main thread

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Bhutan_News_App</string>
+
+    <style name="NoActiveIndicator" parent="">
+        <item name="android:color">@android:color/transparent
+        </item> <!-- Transparent to remove the hover effect -->
+    </style>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Set status bar color -->
+        <item name="android:statusBarColor">@android:color/white</item>
+        <!-- Ensure status bar icons are dark -->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_web_client_id">750082678501-t16bceig2090go5sqtl7tpi2eb4rgiog.apps.googleusercontent.com</string>
 </resources>

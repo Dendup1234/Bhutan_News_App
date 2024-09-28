@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "750082678501",
+    "project_id": "bhutan-news-3653f",
+    "storage_bucket": "bhutan-news-3653f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750082678501:android:e8d946b99c227e7ff3be0c",
+        "android_client_info": {
+          "package_name": "com.example.bhutan_news_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750082678501-t16bceig2090go5sqtl7tpi2eb4rgiog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5flEX_Pb6KlafdbdPbBC8syoQoma-0dY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750082678501-t16bceig2090go5sqtl7tpi2eb4rgiog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750082678501:android:308f04f504d7fe14f3be0c",
+        "android_client_info": {
+          "package_name": "com.example.xlogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750082678501-sd3neqp8ji74hp7520fcasleic4butv3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.xlogin",
+            "certificate_hash": "263811beb19224c5f7c18ec6051e21ec6c742810"
+          }
+        },
+        {
+          "client_id": "750082678501-t16bceig2090go5sqtl7tpi2eb4rgiog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5flEX_Pb6KlafdbdPbBC8syoQoma-0dY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750082678501-t16bceig2090go5sqtl7tpi2eb4rgiog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
